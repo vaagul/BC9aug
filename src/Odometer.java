@@ -25,15 +25,42 @@ public class Odometer {
         return is_ascending;
     }
 
-    public int getNext(int currValue,int offset){
-        return 0;
+
+
+    private int getKeyfromValue(int value){
+        for(Map.Entry<Integer,Integer> entry : odometerValues.entrySet()){
+            if(entry.getValue() == value)
+                return entry.getKey();
+        }
+        return -1;
+    }
+    private int getValuefromKey(int key){
+        for(Map.Entry<Integer,Integer> entry : odometerValues.entrySet()){
+            if(entry.getKey() == key){
+                return entry.getValue();
+            }
+        }
+        return -1;
     }
 
-    public int getPrevious(int currValue,int offset){
-        return 0;
+     public int getNext(int currValue,int offset){
+    	int size=odometerValues.size();
+    	int value;
+    	int index=getKeyfromValue(currValue);
+    	value=getValuefromKey(index+offset)%size;
+    	return value;
+    }
+	public int getPrevious(int currValue,int offset){
+		int size=odometerValues.size();
+    	int value;
+    	int index=getKeyfromValue(currValue);
+    	value=getValuefromKey(index-offset+size)%size;
+    	return value;
     }
 
     public int getDifference(int n1,int n2){
-        return 0;
+
+    	int diff=Math.abs(getKeyfromValue(n1)-getKeyfromValue(n2));
+        return diff;
     }
 }
