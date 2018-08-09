@@ -7,7 +7,22 @@ public class Odometer {
 
     Odometer(int digits){
         this.digits=digits;
-        //code for updating map
+        int key=0;
+        for(int i= (int)Math.pow(10,digits-1); i< (int)Math.pow(10,digits)-1;i++){
+            if(isValidDigit(i))
+                odometerValues.put(key++,i);
+        }
+
+    }
+    private boolean isValidDigit(int n){
+        boolean is_ascending=true;
+        while(n>9){
+            int temp = (n/10);
+            if(n%10 <= temp%10);
+                is_ascending=false;
+            n=n/10;
+        }
+        return is_ascending;
     }
 
     public int getNext(int currValue,int offset){
